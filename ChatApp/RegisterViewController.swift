@@ -8,13 +8,13 @@
 
 import UIKit
 import Firebase
+import SVProgressHUD
 
 class RegisterViewController: UIViewController {
     
     @IBOutlet var emailTextfield: UITextField!
     @IBOutlet var passwordTextfield: UITextField!
     @IBOutlet var repeatPasswordTextfield: UITextField!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,20 +26,73 @@ class RegisterViewController: UIViewController {
     
     
     
+    // MARK: - Sign in authentication
+
+    @IBAction func registerPressed(_ sender: AnyObject) {
+        
+        let error = validateFields()
+        
+        SVProgressHUD.show()
+        
+        
+        if error != nil {
+            
+            let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+        else {
+            
+            Auth.auth().createUser(withEmail: emailTextfield.text!, password: passwordTextfield.text!) { (user, error) in
+                
+                var errorType: String = ""
+                
+                if error != nil {
+                    let errorValue = error! as NSError
+                    switch errorValue.code {
+                    case AuthErrorCode.wrongPassword.rawValue:
+                        errorType = "wrong password"
+                    case AuthErrorCode.invalidEmail.rawValue:
+                        errorType = "invalid email"
+                    case AuthErrorCode.accountExistsWithDifferentCredential.rawValue:
+                        errorType = "accountExistsWithDifferentCredential"
+                    case AuthErrorCode.emailAlreadyInUse.rawValue:
+                        errorType = "email is alreay in use"
+                    default:
+                        errorType = "unknown error: \(errorValue.localizedDescription)"
+                    }
+                    
+                    let alert = UIAlertController(title: "Error", message: errorType, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }
+                else {
+                    SVProgressHUD.dismiss()
+                    print("Registration successful!")
+                    self.performSegue(withIdentifier: "goToChat", sender: self)
+                }
+            }
+            
+        }
+        
+    } 
+    
+    //MARK: - Validate text fields email & password
+    
     func validateFields() -> String? {
         
-        if  emailTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            repeatPasswordTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
-            passwordTextfield.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
-            
-            return "Please fill in all fields."
+        guard emailTextfield.text?.count != 0 ||
+            repeatPasswordTextfield.text?.count != 0 ||
+            passwordTextfield.text?.count != 0 else {
+                return "Please fill in all fields."
         }
         
-        if (passwordTextfield.text != repeatPasswordTextfield.text) || passwordTextfield.text!.count < 8  {
-            return "Please make sure your password is at least 8 characters and match to repeat password field"
+        guard (passwordTextfield.text != repeatPasswordTextfield.text) || passwordTextfield.text!.count >= 6  else {
+            return "Please make sure your password is at least 6 characters and match to repeat password field"
         }
         
-        if isValidEmail(email: emailTextfield.text ?? "") == false {
+        guard isValidEmail(email: emailTextfield.text ?? "") == false else {
             return "Invalid email"
         }
         
@@ -51,63 +104,5 @@ class RegisterViewController: UIViewController {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
-    
-    
-    
-    @IBAction func registerPressed(_ sender: AnyObject) {
-        
-        let error = validateFields()
-        
-        if error != nil {
-            
-            // There's something wrong with the fields, show error message
-            let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
-                
-            })
-            
-            present(alert, animated: true, completion: nil)
-        }
-        else {
-            
-            Auth.auth().createUser(withEmail: emailTextfield.text!, password: passwordTextfield.text!) { (user, error) in
-                
-                var errorType: String = ""
-                
-                if error != nil {
-                    let err = error! as NSError
-                    switch err.code {
-                    case AuthErrorCode.wrongPassword.rawValue:
-                        errorType = "wrong password"
-                    case AuthErrorCode.invalidEmail.rawValue:
-                        errorType = "invalid email"
-                    case AuthErrorCode.accountExistsWithDifferentCredential.rawValue:
-                        errorType = "accountExistsWithDifferentCredential"
-                    case AuthErrorCode.emailAlreadyInUse.rawValue:
-                        errorType = "email is alreay in use"
-                    default:
-                        errorType = "unknown error: \(err.localizedDescription)"
-                    }
-                    
-                    let alert = UIAlertController(title: "Error", message: errorType, preferredStyle: .alert)
-                    
-                    alert.addAction(UIAlertAction(title: "OK", style: .default) { (UIAlertAction) in
-                        
-                    })
-                    
-                    self.present(alert, animated: true, completion: nil)
-                    
-                }
-                else {
-                    print("Registration successful!")
-                    self.performSegue(withIdentifier: "goToChat", sender: self)
-                }
-            }
-            
-        }
-        
-    } 
-    
     
 }
