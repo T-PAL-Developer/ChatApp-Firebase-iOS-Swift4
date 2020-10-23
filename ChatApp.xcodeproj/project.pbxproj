@@ -11,6 +11,7 @@
 		523998CC253DC79200FEF37B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 523998CB253DC79100FEF37B /* GoogleService-Info.plist */; };
 		52B99535253D8C03005A28D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B99534253D8C03005A28D7 /* LaunchScreen.storyboard */; };
 		52E1827125431375006B3BD1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52E1827025431375006B3BD1 /* Images.xcassets */; };
+		52E182732543459D006B3BD1 /* HexToUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E182722543459D006B3BD1 /* HexToUIColor.swift */; };
 		6321A9E21B94EBE70053D2E7 /* CustomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321A9DB1B94EBE70053D2E7 /* CustomMessageCell.swift */; };
 		6321A9E51B94EBE70053D2E7 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6321A9DE1B94EBE70053D2E7 /* MessageCell.xib */; };
 		63E28B251B9A335300FBF6E0 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E28B241B9A335300FBF6E0 /* Message.swift */; };
@@ -26,6 +27,7 @@
 		523998CB253DC79100FEF37B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52B99534253D8C03005A28D7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		52E1827025431375006B3BD1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		52E182722543459D006B3BD1 /* HexToUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexToUIColor.swift; sourceTree = "<group>"; };
 		6321A9B61B94EBA10053D2E7 /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6321A9BA1B94EBA10053D2E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6321A9DB1B94EBE70053D2E7 /* CustomMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMessageCell.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				63E28B241B9A335300FBF6E0 /* Message.swift */,
+				52E182722543459D006B3BD1 /* HexToUIColor.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			files = (
 				63E28B331B9A337600FBF6E0 /* WelcomeViewController.swift in Sources */,
 				63E28B251B9A335300FBF6E0 /* Message.swift in Sources */,
+				52E182732543459D006B3BD1 /* HexToUIColor.swift in Sources */,
 				6321A9E21B94EBE70053D2E7 /* CustomMessageCell.swift in Sources */,
 				63E28B321B9A337600FBF6E0 /* RegisterViewController.swift in Sources */,
 				63E28B311B9A337600FBF6E0 /* LogInViewController.swift in Sources */,

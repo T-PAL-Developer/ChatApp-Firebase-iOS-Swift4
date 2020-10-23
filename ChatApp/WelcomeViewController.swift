@@ -17,14 +17,11 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var lbl1: UILabel!
     @IBOutlet weak var lbl2: UILabel!
     @IBOutlet weak var lbl3: UILabel!
-    @IBOutlet weak var lbl4: UILabel!
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-
         
         labelAnimation()
         
@@ -36,35 +33,57 @@ class WelcomeViewController: UIViewController {
     
     
     
+    @IBAction func tapGestureOnImageView(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            
+            self.logoLabel.transform = CGAffineTransform(translationX: self.logoLabel.bounds.origin.x, y: self.logoLabel.bounds.origin.y + 50)
+            
+        }) { (_) in
+            UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+                self.logoLabel.isHidden = false
+                self.logoLabel.transform = .identity
+            }, completion: nil)
+        }
+    }
+    
+    
+    
     func labelAnimation() {
         
         lbl1.isHidden = true
         lbl2.isHidden = true
         lbl3.isHidden = true
-//        lbl4.isHidden = true
         logoLabel.isHidden = true
         
         
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
-            self.lbl1.isHidden = false
-            self.lbl1.transform = CGAffineTransform(translationX: 0, y: -236)
+        UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            
+            self.lbl1.transform = CGAffineTransform(translationX: self.lbl1.bounds.origin.x, y: self.lbl1.bounds.origin.y + 100)
+            self.lbl2.transform = CGAffineTransform(translationX: self.lbl2.bounds.origin.x, y: self.lbl2.bounds.origin.y + 100)
+            self.lbl3.transform = CGAffineTransform(translationX: self.lbl3.bounds.origin.x, y: self.lbl3.bounds.origin.y + 100)
+            self.logoLabel.transform = CGAffineTransform(translationX: self.logoLabel.bounds.origin.x, y: self.logoLabel.bounds.origin.y + 50)
+            
         }) { (_) in
-            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
-                self.lbl2.isHidden = false
-                self.lbl2.transform = CGAffineTransform(translationX: 0, y: -206)
+            UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+                self.lbl1.isHidden = false
+                self.lbl1.transform = .identity
             }, completion: { (_) in
-                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
-                    self.lbl3.isHidden = false
-                    self.lbl3.transform = CGAffineTransform(translationX: -67, y: -46)
+                UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
+                    self.lbl2.isHidden = false
+                    self.lbl2.transform = .identity
                 }, completion: { (_) in
-                    UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
-                    
-                    self.logoLabel.isHidden = false
-                    self.logoLabel.transform = CGAffineTransform(translationX: 0, y: -120)
-                    }, completion: nil)
+                    UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
+                        self.lbl3.isHidden = false
+                        self.lbl3.transform = .identity
+                    }, completion: { (_) in
+                        UIView.animate(withDuration: 1.5, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.2, options: .curveEaseInOut, animations: {
+                            self.logoLabel.isHidden = false
+                            self.logoLabel.transform = .identity
+                        }, completion: nil)
                     })
                 })
-           
+            })
         }
         
     }

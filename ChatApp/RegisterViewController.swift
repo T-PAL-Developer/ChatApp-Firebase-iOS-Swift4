@@ -15,9 +15,16 @@ class RegisterViewController: UIViewController {
     @IBOutlet var emailTextfield: UITextField!
     @IBOutlet var passwordTextfield: UITextField!
     @IBOutlet var repeatPasswordTextfield: UITextField!
+    @IBOutlet weak var label1: UILabel!
+    @IBOutlet weak var registerButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fontsColor()
+        
+        registerButton.layer.cornerRadius = 5
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -31,11 +38,12 @@ class RegisterViewController: UIViewController {
     @IBAction func registerPressed(_ sender: AnyObject) {
         
         let error = validateFields()
-        
-        SVProgressHUD.show()
+     
         
         
         if error != nil {
+            
+           
             
             let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -48,6 +56,9 @@ class RegisterViewController: UIViewController {
                 var errorType: String = ""
                 
                 if error != nil {
+                    
+                    
+                    
                     let errorValue = error! as NSError
                     switch errorValue.code {
                     case AuthErrorCode.wrongPassword.rawValue:
@@ -68,7 +79,7 @@ class RegisterViewController: UIViewController {
                     
                 }
                 else {
-                    SVProgressHUD.dismiss()
+                   
                     print("Registration successful!")
                     self.performSegue(withIdentifier: "goToChat", sender: self)
                 }
@@ -92,7 +103,7 @@ class RegisterViewController: UIViewController {
             return "Please make sure your password is at least 6 characters and match to repeat password field"
         }
         
-        guard isValidEmail(email: emailTextfield.text ?? "") == false else {
+        guard isValidEmail(email: emailTextfield.text ?? "") != false else {
             return "Invalid email"
         }
         
@@ -104,5 +115,34 @@ class RegisterViewController: UIViewController {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
+    
+    // MARK: - Fonts color
+
+     func fontsColor(){
+         
+        
+         
+        let attrs1 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "F9AF3B")]
+         let attrs2 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "FF57C5")]
+        let attrs3 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "FF4C0F")]
+        let attrs4 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "B6FF8D")]
+         //let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedString.Key.foregroundColor : UIColor.white]
+
+         let attributedString1 = NSMutableAttributedString(string:"Create", attributes:attrs1)
+
+         let attributedString2 = NSMutableAttributedString(string:" a", attributes:attrs2)
+        
+        let attributedString3 = NSMutableAttributedString(string:" new", attributes:attrs3)
+
+        let attributedString4 = NSMutableAttributedString(string:" account", attributes:attrs4)
+        
+        
+            
+         attributedString1.append(attributedString2)
+        attributedString1.append(attributedString3)
+        attributedString1.append(attributedString4)
+         self.label1.attributedText = attributedString1
+         
+     }
     
 }
