@@ -10,7 +10,7 @@
 		317A9A9890C02CDB690DF6BA /* Pods_ChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECA90CCD1DC2646AB2E89C31 /* Pods_ChatApp.framework */; };
 		523998CC253DC79200FEF37B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 523998CB253DC79100FEF37B /* GoogleService-Info.plist */; };
 		52B99535253D8C03005A28D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B99534253D8C03005A28D7 /* LaunchScreen.storyboard */; };
-		6321A9C31B94EBA10053D2E7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6321A9C21B94EBA10053D2E7 /* Images.xcassets */; };
+		52E1827125431375006B3BD1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52E1827025431375006B3BD1 /* Images.xcassets */; };
 		6321A9E21B94EBE70053D2E7 /* CustomMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6321A9DB1B94EBE70053D2E7 /* CustomMessageCell.swift */; };
 		6321A9E51B94EBE70053D2E7 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6321A9DE1B94EBE70053D2E7 /* MessageCell.xib */; };
 		63E28B251B9A335300FBF6E0 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E28B241B9A335300FBF6E0 /* Message.swift */; };
@@ -25,9 +25,9 @@
 /* Begin PBXFileReference section */
 		523998CB253DC79100FEF37B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52B99534253D8C03005A28D7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		52E1827025431375006B3BD1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6321A9B61B94EBA10053D2E7 /* ChatApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6321A9BA1B94EBA10053D2E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6321A9C21B94EBA10053D2E7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6321A9DB1B94EBE70053D2E7 /* CustomMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMessageCell.swift; sourceTree = "<group>"; };
 		6321A9DE1B94EBE70053D2E7 /* MessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
 		63E28B241B9A335300FBF6E0 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -58,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				6321A9B81B94EBA10053D2E7 /* ChatApp */,
+				52E1827025431375006B3BD1 /* Images.xcassets */,
 				6321A9B71B94EBA10053D2E7 /* Products */,
 				9D86AC0B8818A47E6081E851 /* Pods */,
 				A5603A8938DBCCF7276EC8DB /* Frameworks */,
@@ -78,7 +79,6 @@
 				6321A9EE1B94EC360053D2E7 /* Model */,
 				6321A9EB1B94EC170053D2E7 /* View */,
 				6321A9EA1B94EC0A0053D2E7 /* Controller */,
-				6321A9C21B94EBA10053D2E7 /* Images.xcassets */,
 				6321A9B91B94EBA10053D2E7 /* Supporting Files */,
 			);
 			path = ChatApp;
@@ -214,9 +214,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				63E28B291B9A336600FBF6E0 /* Main.storyboard in Resources */,
+				52E1827125431375006B3BD1 /* Images.xcassets in Resources */,
 				52B99535253D8C03005A28D7 /* LaunchScreen.storyboard in Resources */,
 				523998CC253DC79200FEF37B /* GoogleService-Info.plist in Resources */,
-				6321A9C31B94EBA10053D2E7 /* Images.xcassets in Resources */,
 				6321A9E51B94EBE70053D2E7 /* MessageCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
