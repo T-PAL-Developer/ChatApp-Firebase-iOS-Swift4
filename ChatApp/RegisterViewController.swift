@@ -17,6 +17,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet var repeatPasswordTextfield: UITextField!
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var facebookButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class RegisterViewController: UIViewController {
         fontsColor()
         
         registerButton.layer.cornerRadius = 5
-        
+        facebookButton.layer.cornerRadius = 5
     }
     
     override func didReceiveMemoryWarning() {
@@ -32,22 +33,39 @@ class RegisterViewController: UIViewController {
     }
     
     
+    @IBAction func facebookButtonPressed(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "Facebook authentication", message: "This allows the app to share information about you", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Continue", style: .default) { (UIAlertAction) in
+            
+            print("facebookButtonTest")
+            self.performSegue(withIdentifier: "goToChat", sender: self)
+            
+        })
+      
+        present(alert, animated: true, completion: nil)
+        
+    }
     
     // MARK: - Sign in authentication
-
+    
     @IBAction func registerPressed(_ sender: AnyObject) {
         
         let error = validateFields()
-     
+        
         
         
         if error != nil {
             
-           
-            
             let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
+            
+            return
+            
         }
         else {
             
@@ -77,11 +95,14 @@ class RegisterViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                     
+                    return
+                    
                 }
                 else {
-                   
+                    
                     print("Registration successful!")
                     self.performSegue(withIdentifier: "goToChat", sender: self)
+                    
                 }
             }
             
@@ -117,32 +138,32 @@ class RegisterViewController: UIViewController {
     }
     
     // MARK: - Fonts color
-
-     func fontsColor(){
-         
+    
+    func fontsColor(){
         
-         
+        
+        
         let attrs1 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "F9AF3B")]
-         let attrs2 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "FF57C5")]
+        let attrs2 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "FF57C5")]
         let attrs3 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "FF4C0F")]
         let attrs4 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "B6FF8D")]
-         //let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedString.Key.foregroundColor : UIColor.white]
-
-         let attributedString1 = NSMutableAttributedString(string:"Create", attributes:attrs1)
-
-         let attributedString2 = NSMutableAttributedString(string:" a", attributes:attrs2)
+        //let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedString.Key.foregroundColor : UIColor.white]
+        
+        let attributedString1 = NSMutableAttributedString(string:"Create", attributes:attrs1)
+        
+        let attributedString2 = NSMutableAttributedString(string:" a", attributes:attrs2)
         
         let attributedString3 = NSMutableAttributedString(string:" new", attributes:attrs3)
-
+        
         let attributedString4 = NSMutableAttributedString(string:" account", attributes:attrs4)
         
         
-            
-         attributedString1.append(attributedString2)
+        
+        attributedString1.append(attributedString2)
         attributedString1.append(attributedString3)
         attributedString1.append(attributedString4)
-         self.label1.attributedText = attributedString1
-         
-     }
+        self.label1.attributedText = attributedString1
+        
+    }
     
 }
