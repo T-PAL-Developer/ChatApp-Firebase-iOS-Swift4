@@ -120,7 +120,7 @@ class RegisterViewController: UIViewController {
                 return "Please fill in all fields."
         }
         
-        guard (passwordTextfield.text != repeatPasswordTextfield.text) || passwordTextfield.text!.count >= 6  else {
+        guard (passwordTextfield.text == repeatPasswordTextfield.text) && passwordTextfield.text!.count >= 6  else {
             return "Please make sure your password is at least 6 characters and match to repeat password field"
         }
         
