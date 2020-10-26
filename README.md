@@ -1,11 +1,12 @@
 # ChatApp-iOS-Swift4
-Chat application using Firebase realtime database &amp; e-mail authentication | in Swift 4 ✓MVC ✓Firebase ✓CocoaPods  ✓UITableView ✓Animations ✓Authentication ✓Realtime database
+Chat application using Firebase realtime database &amp; e-mail authentication | in Swift 4 ✓MVC ✓Firebase ✓CocoaPods  ✓UITableView ✓Animations ✓Authentication ✓Realtime database ✓GCD Completion Handler
 
 You can find here:
 
+* Grand Central Dispatch - Completion handler to queue asynchronous tasks
 * Store data in the cloud using Firebase and query the Firebase database
 * CocoaPods to manage and use open source code libraries
-* Grand Central Dispatch to queue asynchronous tasks
+* Embed View Controllers in a Navigation Controller
 * Navigation between View Controllers using Segues
 * How to store data in the cloud using Firebase
 * UITableView and custom cells in a Table View
