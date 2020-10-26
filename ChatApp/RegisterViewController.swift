@@ -71,11 +71,9 @@ class RegisterViewController: UIViewController {
             
             Auth.auth().createUser(withEmail: emailTextfield.text!, password: passwordTextfield.text!) { (user, error) in
                 
-                var errorType: String = ""
-                
                 if error != nil {
                     
-                    
+                    var errorType: String = ""
                     
                     let errorValue = error! as NSError
                     switch errorValue.code {
@@ -137,11 +135,11 @@ class RegisterViewController: UIViewController {
         return emailTest.evaluate(with: email)
     }
     
+    
+    
     // MARK: - Fonts color
     
     func fontsColor(){
-        
-        
         
         let attrs1 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "F9AF3B")]
         let attrs2 = [NSAttributedString.Key.foregroundColor : UIColor(hexFromString: "FF57C5")]
@@ -156,8 +154,6 @@ class RegisterViewController: UIViewController {
         let attributedString3 = NSMutableAttributedString(string:" new", attributes:attrs3)
         
         let attributedString4 = NSMutableAttributedString(string:" account", attributes:attrs4)
-        
-        
         
         attributedString1.append(attributedString2)
         attributedString1.append(attributedString3)
