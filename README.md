@@ -1,5 +1,5 @@
 # ChatApp-iOS-Swift4
-Chat application using Firebase realtime database &amp; e-mail authentication | in Swift 4 ✓MVC ✓Firebase ✓CocoaPods  ✓UITableView ✓Animations ✓Authentication ✓Realtime database ✓GCD Completion Handler
+Chat application using Firebase realtime database &amp; e-mail authentication | in Swift 4 ✓MVC ✓Firebase ✓CocoaPods  ✓UITableView ✓Tween Animation ✓Authentication ✓Realtime database ✓GCD Completion Handler
 
 You can find here:
 
@@ -13,5 +13,6 @@ You can find here:
 * Using Firebase for user authentication
 * Pass data between View Controllers
 * Delegates and Protocols
+* Tween Animation
 
 <img src="https://i.imgur.com/Siz3jix.png">_______![GIF](https://s8.gifyu.com/images/Projekt-bez-tytulu4bfa6cba78f0bde3.gif) 
