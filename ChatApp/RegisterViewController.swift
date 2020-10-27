@@ -122,11 +122,17 @@ class RegisterViewController: UIViewController {
 //                         }
 //                       }
 //                     }
-//                    
-                    
-//                    let uid = (Auth.auth().currentUser?.uid)!
-//                    let ref = Database.database().reference(withPath: "main/users").child(uid)
-//                    ref.setValue(["uid": uid, "email": self.emailTextfield.text!, "displayName": self.userTextfield.text!, "creationDate": String(describing: Date())])
+//
+                    let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                    changeRequest?.displayName = self.userTextfield.text
+                    changeRequest?.commitChanges { (error) in
+                      // ...
+                    }
+                    let uid = (Auth.auth().currentUser?.uid)!
+                    let ref = Database.database().reference(withPath: "main/users").child(uid)
+                    ref.setValue(["email": self.emailTextfield.text!,
+                                  "user": self.userTextfield.text!,
+                                  "creationDate": String(describing: Date())])
                     
                     print("Registration successful!")
                     self.performSegue(withIdentifier: "goToChat", sender: self)
