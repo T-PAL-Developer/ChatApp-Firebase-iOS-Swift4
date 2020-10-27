@@ -18,7 +18,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var messageTextfield: UITextField!
     @IBOutlet var messageTableView: UITableView!
     
-    
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +29,21 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         configureTableView()
         
         messageTextfield.delegate = self
-        
-        keyboardConfig()
+    
         
     }
     
-    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        keyboardAddObserver()
+//
+//    }
+//
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        keyboardRemoveObserver()
+//
+//    }
     
     //MARK: - TableView DataSource Methods
     
@@ -72,46 +81,56 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
-    
     //MARK:- Keyboard Configuration
     
-    func keyboardConfig() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        self.view.addGestureRecognizer(tap)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
+    // NO MORE NEEDED - WE ARE USING HERE A THIRD PARTY LIBRARY IQKeyboardManagerSwift
     
-    @objc func dismissKeyboard() {
-          self.view.endEditing(true)
-      }
-    
-    @objc func keyboardWillShow(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            let keyboardHeight  = CGFloat(keyboardSize.height)
-            
-             UIView.animate(withDuration: 0.5) {
-                self.heightTextfieldConstraint.constant += keyboardHeight
-                       self.view.layoutIfNeeded()
-                   }
-           
-        }
-        
-    }
-    
-    @objc func keyboardWillHide(notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            let keyboardHeight  = CGFloat(keyboardSize.height)
-            UIView.animate(withDuration: 0.5) {
-                self.heightTextfieldConstraint.constant -= keyboardHeight
-                      self.view.layoutIfNeeded()
-                  }
-           
-        }
-        
-    }
+//    func tapGestureDismissKeyboard() {
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+//        view.addGestureRecognizer(tap)
+//    }
+//
+//    @objc func dismissKeyboard() {
+//        view.endEditing(true)
+//    }
+//
+//    func keyboardAddObserver() {
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+//
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//    }
+//
+//    func keyboardRemoveObserver() {
+//
+//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+//
+//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+//    }
+//
+//    @objc func keyboardWillShow(notification: Notification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            let keyboardHeight  = CGFloat(keyboardSize.height)
+//            UIView.animate(withDuration: 0.5) {
+//                self.heightTextfieldConstraint.constant += keyboardHeight
+//                self.view.layoutIfNeeded()
+//            }
+//        }
+//
+//    }
+//
+//    @objc func keyboardWillHide(notification: Notification) {
+//
+//        self.heightTextfieldConstraint.constant = 50
+//        self.view.layoutIfNeeded()
+//
+//                if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//                    let keyboardHeight  = CGFloat(keyboardSize.height)
+//
+//        
+//                }
+//
+//    }
     
     
     
@@ -120,7 +139,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBAction func sendPressed(_ sender: AnyObject) {
         
+        messageTextfield.endEditing(true)
         
+        messageTextfield.isEnabled = false
+        sendButton.isEnabled = false
+        
+        
+        let messageDB = Database.database().reference(withPath: "main/users").child("Messages")
+        
+        let messageDictionary = ["Sender" : Auth.auth().currentUser?.displayName, "MessageBody": messageTextfield.text!]
+        
+        messageDB.childByAutoId().setValue(messageDictionary)
         
     }
     

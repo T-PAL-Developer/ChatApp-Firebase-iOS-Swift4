@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		317A9A9890C02CDB690DF6BA /* Pods_ChatApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECA90CCD1DC2646AB2E89C31 /* Pods_ChatApp.framework */; };
+		52111BA925484BD700422920 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 52111BA825484BD700422920 /* IQKeyboardManagerSwift */; };
 		523998CC253DC79200FEF37B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 523998CB253DC79100FEF37B /* GoogleService-Info.plist */; };
 		52B99535253D8C03005A28D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52B99534253D8C03005A28D7 /* LaunchScreen.storyboard */; };
 		52E1827125431375006B3BD1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52E1827025431375006B3BD1 /* Images.xcassets */; };
@@ -50,6 +51,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				317A9A9890C02CDB690DF6BA /* Pods_ChatApp.framework in Frameworks */,
+				52111BA925484BD700422920 /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +172,9 @@
 			dependencies = (
 			);
 			name = ChatApp;
+			packageProductDependencies = (
+				52111BA825484BD700422920 /* IQKeyboardManagerSwift */,
+			);
 			productName = "Flash Chat";
 			productReference = 6321A9B61B94EBA10053D2E7 /* ChatApp.app */;
 			productType = "com.apple.product-type.application";
@@ -202,6 +207,9 @@
 				Base,
 			);
 			mainGroup = 6321A9AD1B94EBA10053D2E7;
+			packageReferences = (
+				52111BA725484BD600422920 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+			);
 			productRefGroup = 6321A9B71B94EBA10053D2E7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -400,7 +408,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -418,7 +427,10 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ChatApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpal.ChatApp;
 				PRODUCT_NAME = ChatApp;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -439,7 +451,10 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ChatApp/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tpal.ChatApp;
 				PRODUCT_NAME = ChatApp;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -469,6 +484,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		52111BA725484BD600422920 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		52111BA825484BD700422920 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52111BA725484BD600422920 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6321A9AE1B94EBA10053D2E7 /* Project object */;
 }

@@ -12,6 +12,7 @@ import SVProgressHUD
 
 class RegisterViewController: UIViewController {
     
+    @IBOutlet weak var userTextfield: UITextField!
     @IBOutlet var emailTextfield: UITextField!
     @IBOutlet var passwordTextfield: UITextField!
     @IBOutlet var repeatPasswordTextfield: UITextField!
@@ -26,12 +27,20 @@ class RegisterViewController: UIViewController {
         
         registerButton.layer.cornerRadius = 5
         facebookButton.layer.cornerRadius = 5
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
     }
     
     override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        didReceiveMemoryWarning()
     }
     
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     
     @IBAction func facebookButtonPressed(_ sender: Any) {
         
@@ -45,7 +54,7 @@ class RegisterViewController: UIViewController {
             self.performSegue(withIdentifier: "goToChat", sender: self)
             
         })
-      
+        
         present(alert, animated: true, completion: nil)
         
     }
@@ -98,6 +107,27 @@ class RegisterViewController: UIViewController {
                 }
                 else {
                     
+//                    let user = Auth.auth().currentUser
+//                    if let user = user {
+//                        let changeRequest = user.createProfileChangeRequest()
+//
+//                       changeRequest.displayName = "Jane Q. User"
+//                       changeRequest.photoURL =
+//                        NSURL(string: "https://example.com/jane-q-user/profile.jpg") as URL?
+//                        changeRequest.commitChanges { error in
+//                            if error != nil {
+//                           // An error happened.
+//                         } else {
+//                           // Profile updated.
+//                         }
+//                       }
+//                     }
+//                    
+                    
+//                    let uid = (Auth.auth().currentUser?.uid)!
+//                    let ref = Database.database().reference(withPath: "main/users").child(uid)
+//                    ref.setValue(["uid": uid, "email": self.emailTextfield.text!, "displayName": self.userTextfield.text!, "creationDate": String(describing: Date())])
+                    
                     print("Registration successful!")
                     self.performSegue(withIdentifier: "goToChat", sender: self)
                     
@@ -112,10 +142,10 @@ class RegisterViewController: UIViewController {
     
     func validateFields() -> String? {
         
-        guard emailTextfield.text?.count != 0 ||
+        guard userTextfield.text?.count != 0 || emailTextfield.text?.count != 0 ||
             repeatPasswordTextfield.text?.count != 0 ||
             passwordTextfield.text?.count != 0 else {
-                return "Please fill in all fields."
+                return "Please fill all fields"
         }
         
         guard (passwordTextfield.text == repeatPasswordTextfield.text) && passwordTextfield.text!.count >= 6  else {
