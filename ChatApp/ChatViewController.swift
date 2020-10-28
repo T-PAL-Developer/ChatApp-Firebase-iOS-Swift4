@@ -14,6 +14,7 @@ import SDWebImage
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     var messageArray : [Message] = [Message]()
+   
     
     @IBOutlet var heightTextfieldConstraint: NSLayoutConstraint!
     @IBOutlet var sendButton: UIButton!
@@ -36,17 +37,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        super.viewWillAppear(animated)
-    //        keyboardAddObserver()
-    //
-    //    }
-    //
-    //    override func viewWillDisappear(_ animated: Bool) {
-    //        super.viewWillDisappear(animated)
-    //        keyboardRemoveObserver()
-    //
-    //    }
+  
     
     //MARK: - TableView DataSource Methods
     
@@ -54,17 +45,13 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
         
+        let avatar = URL(string: messageArray[indexPath.row].avatarURL)
+        
         cell.messageBody.text = messageArray[indexPath.row].messageBody
         cell.senderUsername.text = messageArray[indexPath.row].sender
-        cell.avatarImageView?.sd_setImage(with: Auth.auth().currentUser?.photoURL, placeholderImage: nil, options: SDWebImageOptions.highPriority, context: nil)
+        cell.avatarImageView?.sd_setImage(with: avatar, placeholderImage: nil, options: SDWebImageOptions.highPriority, context: nil)
         
-//        (with: (Auth.auth().currentUser?.photoURL)!, completed: { (downloadedImage, downloadedException, cachType, downloadURL) in
-//            if downloadedException != nil {
-//                print("error imageURL download")
-//            } else {
-//                print("Success imageURL download")
-//            }
-//        })
+
         
         return cell
         
@@ -81,7 +68,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
-    //MARK: - Send & Recieve from Firebase
+    //MARK: - Send & Recieve Data from Firebase
     
     @IBAction func sendPressed(_ sender: AnyObject) {
         
@@ -91,48 +78,56 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         sendButton.isEnabled = false
         
         
-        let messageDB = Database.database().reference(withPath: "main/users").child("\(Auth.auth().currentUser!.uid)").child("Messages")
-        
-        let messageDictionary = ["Sender" : Auth.auth().currentUser?.displayName, "MessageBody": messageTextfield.text!]
-        
-        messageDB.childByAutoId().setValue(messageDictionary) { (error, reference) in
+ if let metaImageUrl = Auth.auth().currentUser?.photoURL?.absoluteString {
+      print(metaImageUrl)
+ 
+             let messageDB = Database.database().reference(withPath: "main/users").child("Messages")
+             
+            let messageDictionary = ["Sender" : Auth.auth().currentUser?.displayName, "MessageBody": self.messageTextfield.text!, "Avatar": metaImageUrl]
+             
+             messageDB.childByAutoId().setValue(messageDictionary) { (error, reference) in
+                 
+                 if error != nil {
+                     print("error messageDB: \(String(describing: error?.localizedDescription))")
+                     return
+                 }
+                 else {
+                     print("Message saved successfully!")
+                     print("Add message with metaImageURL : \(metaImageUrl)")
+                    self.messageTextfield.isEnabled = true
+                     self.sendButton.isEnabled = true
+                     self.messageTextfield.text = ""
+                     
+                 }
+                 
+             }
             
-            if error != nil {
-                print("error messageDB: \(String(describing: error?.localizedDescription))")
-                return
-            }
-            else {
-                print("Message saved successfully!")
-                
-                self.messageTextfield.isEnabled = true
-                self.sendButton.isEnabled = true
-                self.messageTextfield.text = ""
-                
-            }
-            
-        }
+ } else { print("Problem with metaImageURL value") }
+
         
     }
     
     func retrieveMessagesFromFirebase() {
         
-        let messageDB = Database.database().reference(withPath: "main/users").child("\(Auth.auth().currentUser!.uid)").child("Messages")
+        let messageDB = Database.database().reference(withPath: "main/users").child("Messages")
         
         messageDB.observe(.childAdded) { (snapshot) in
-            let snapshotValue = snapshot.value as! Dictionary<String,String>
-            
-            let text = snapshotValue["MessageBody"]!
-            let sender = snapshotValue["Sender"]!
+            let snapshotValue = snapshot.value as? Dictionary<String,String>
+            if snapshotValue != nil {
+                let text = snapshotValue!["MessageBody"]!
+                let sender = snapshotValue!["Sender"]!
+                let avatar = snapshotValue!["Avatar"]!
             
             let message = Message()
             message.sender = sender
             message.messageBody = text
+            message.avatarURL = avatar
             
             self.messageArray.append(message)
             
             self.configureTableView()
             self.messageTableView.reloadData()
-            
+            }
             
         }
         
@@ -175,6 +170,19 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     //MARK:- Keyboard Configuration
     
     // // NO MORE NEEDED - WE ARE USING HERE A THIRD PARTY LIBRARY IQKeyboardManagerSwift
+    
+      //    override func viewWillAppear(_ animated: Bool) {
+      //        super.viewWillAppear(animated)
+      //        keyboardAddObserver()
+      //
+      //    }
+      //
+      //    override func viewWillDisappear(_ animated: Bool) {
+      //        super.viewWillDisappear(animated)
+      //        keyboardRemoveObserver()
+      //
+      //    }
+    
     
     //    func tapGestureDismissKeyboard() {
     //        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))

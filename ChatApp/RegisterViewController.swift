@@ -127,6 +127,10 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
             
             guard let imageSelected = self.image else {
                 print("Avatar is not selected")
+                let alert = UIAlertController(title: "Error", message: "Avatar is not selected", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                present(alert, animated: true, completion: nil)
+                
                 return
             }
             
@@ -135,6 +139,8 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
             }
             
             Auth.auth().createUser(withEmail: emailTextfield.text!, password: passwordTextfield.text!) { (user, error) in
+                
+                SVProgressHUD.show()
                 
                 if error != nil {
                     
@@ -158,11 +164,12 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                     alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                     
+                    SVProgressHUD.dismiss()
+                    
                     return
                     
                 }
                 else {
-                    
                     
                     // data configuration
                     let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
@@ -204,7 +211,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                                                 print("error changeRequest URL: \(String(describing: error?.localizedDescription))")
                                                 return
                                             }
-                                            print("\(String(describing: (Auth.auth().currentUser?.photoURL)!))")
+                                            print("\(String(describing: Auth.auth().currentUser?.photoURL)))")
                                         }
                                         print("UpdateChildValues Image URL Done!")
                                     }
@@ -214,10 +221,19 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                         }
                     }
                     
+                    SVProgressHUD.dismiss()
                     
+                    self.avatar.setImage(UIImage(named: "avatar"), for: .normal)
+                    self.userTextfield.text = ""
+                    self.emailTextfield.text = ""
+                    self.passwordTextfield.text = ""
+                    self.repeatPasswordTextfield.text = ""
                     
                     print("Registration successful!")
                     self.performSegue(withIdentifier: "goToChat", sender: self)
+                    
+                    
+                    
                     
                 }
             }
