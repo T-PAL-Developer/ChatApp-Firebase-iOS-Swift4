@@ -19,8 +19,11 @@ class CustomMessageCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code goes here
-        
-        
+        self.layoutIfNeeded()
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+        avatarImageView.contentMode = .scaleAspectFill
+        avatarImageView.clipsToBounds = true
+       
         
     }
 

@@ -72,7 +72,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     
     func setupAvatar() {
         
-        avatar.layer.cornerRadius = 45
+        avatar.layer.cornerRadius = 40
         avatar.imageView?.contentMode = .scaleAspectFill
         avatar.clipsToBounds = true
         avatar.isUserInteractionEnabled = true
@@ -99,13 +99,13 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
         
         if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             image = imageOriginal
-              avatar.setImage(imageOriginal, for: .normal)
-          }
+            avatar.setImage(imageOriginal, for: .normal)
+        }
         
         picker.dismiss(animated: true, completion: nil)
     }
     
-
+    
     
     // MARK: - Sign in authentication
     
@@ -130,7 +130,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                 return
             }
             
-            guard let imageData = imageSelected.jpegData(compressionQuality: 0.5) else {
+            guard let imageData = imageSelected.jpegData(compressionQuality: 0.2) else {
                 return
             }
             
@@ -169,8 +169,8 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                     changeRequest?.displayName = self.userTextfield.text
                     changeRequest?.commitChanges { (error) in
                         if error != nil {
-                        print("error changeRequest: \(String(describing: error?.localizedDescription))")
-                        return
+                            print("error changeRequest: \(String(describing: error?.localizedDescription))")
+                            return
                         }
                     }
                     
@@ -179,7 +179,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                                   "user": self.userTextfield.text!,
                                   "creationDate": String(describing: Date()),
                                   "profileImageUrl": ""])
-                       
+                    
                     // photos storage configration
                     let storageRef = Storage.storage().reference(forURL: "gs://chatapp-tpal.appspot.com")
                     let storageProfileRef = storageRef.child("profile").child("\(Auth.auth().currentUser!.uid)")
@@ -188,7 +188,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                     metadata.contentType = "image/jpg"
                     storageProfileRef.putData(imageData, metadata: metadata) { (storageMetaData, error) in
                         if error != nil {
-                          print("error storageProfileRef: \(String(describing: error?.localizedDescription))")
+                            print("error storageProfileRef: \(String(describing: error?.localizedDescription))")
                             return
                         }
                         storageProfileRef.downloadURL { (url, error) in
@@ -201,15 +201,15 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                                         changeRequest?.photoURL = url
                                         changeRequest?.commitChanges { (error) in
                                             if error != nil {
-                                            print("error changeRequest URL: \(String(describing: error?.localizedDescription))")
-                                            return
+                                                print("error changeRequest URL: \(String(describing: error?.localizedDescription))")
+                                                return
                                             }
                                             print("\(String(describing: (Auth.auth().currentUser?.photoURL)!))")
                                         }
                                         print("UpdateChildValues Image URL Done!")
                                     }
                                 }
-                          
+                                
                             }
                         }
                     }
