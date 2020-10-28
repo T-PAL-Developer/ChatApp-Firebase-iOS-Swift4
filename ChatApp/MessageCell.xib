@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KKK-He-xNm">
-                        <rect key="frame" x="0.0" y="10" width="53" height="53"/>
+                        <rect key="frame" x="2" y="10" width="53" height="53"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="53" id="V9u-bj-2Ih"/>
                             <constraint firstAttribute="width" constant="53" id="cfG-zK-5xi"/>
@@ -59,10 +59,10 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="Yxz-95-vHl" secondAttribute="bottom" constant="11" id="7rL-k3-Njc"/>
-                    <constraint firstItem="KKK-He-xNm" firstAttribute="leading" secondItem="2SS-CF-kBl" secondAttribute="leading" id="CER-Dt-k53"/>
+                    <constraint firstItem="KKK-He-xNm" firstAttribute="leading" secondItem="2SS-CF-kBl" secondAttribute="leading" constant="2" id="CER-Dt-k53"/>
                     <constraint firstAttribute="trailing" secondItem="Yxz-95-vHl" secondAttribute="trailing" constant="10" id="F1b-eD-GtD"/>
                     <constraint firstItem="Yxz-95-vHl" firstAttribute="top" secondItem="2SS-CF-kBl" secondAttribute="top" constant="10" id="UHt-vT-ebt"/>
-                    <constraint firstItem="Yxz-95-vHl" firstAttribute="leading" secondItem="KKK-He-xNm" secondAttribute="trailing" constant="6" id="lgh-rZ-Qdu"/>
+                    <constraint firstItem="Yxz-95-vHl" firstAttribute="leading" secondItem="KKK-He-xNm" secondAttribute="trailing" constant="4" id="lgh-rZ-Qdu"/>
                     <constraint firstItem="KKK-He-xNm" firstAttribute="top" secondItem="2SS-CF-kBl" secondAttribute="top" constant="10" id="vea-Ie-2uS"/>
                 </constraints>
             </tableViewCellContentView>

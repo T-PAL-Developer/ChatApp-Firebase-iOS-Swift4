@@ -12,13 +12,13 @@ import Firebase
 
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
+    var messageArray : [Message] = [Message]()
     
     @IBOutlet var heightTextfieldConstraint: NSLayoutConstraint!
     @IBOutlet var sendButton: UIButton!
     @IBOutlet var messageTextfield: UITextField!
     @IBOutlet var messageTableView: UITableView!
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,16 +53,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
         
-        let messageArray = ["First Message", "Secondhjghjghjghjghjghjhgjhjghnghnbghnbvhgnbfvhgnvnbv gfvgbfvgf hgb Message", "Third Message"]
-        
-        cell.messageBody.text = messageArray[indexPath.row]
+        cell.messageBody.text = messageArray[indexPath.row].messageBody
+        cell.senderUsername.text = messageArray[indexPath.row].sender
+        cell.avatarImageView.image = UIImage(named: "avatar")
         
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { tableView.keyboardDismissMode = .onDrag
-        return 3
+        return messageArray.count
     }
     
     func configureTableView() {
@@ -89,11 +89,13 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         messageDB.childByAutoId().setValue(messageDictionary) { (error, reference) in
             
             if error != nil {
-                print(error)
+                print("error messageDB: \(String(describing: error?.localizedDescription))")
+                return
             }
             else {
                 print("Message saved successfully!")
                 
+                 print("\(String(describing: Auth.auth().currentUser!.photoURL!))")
                 self.messageTextfield.isEnabled = true
                 self.sendButton.isEnabled = true
                 self.messageTextfield.text = ""
@@ -114,7 +116,16 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             let text = snapshotValue["MessageBody"]!
             let sender = snapshotValue["Sender"]!
             
-            print(text, sender)
+            let message = Message()
+            message.sender = sender
+            message.messageBody = text
+            
+            self.messageArray.append(message)
+            
+            self.configureTableView()
+            self.messageTableView.reloadData()
+            
+            
         }
         
     }
@@ -137,7 +148,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
-}
+
 
 
 
@@ -205,5 +216,5 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
   //    }
   
   
-  
+  }
   

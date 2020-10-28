@@ -8,9 +8,10 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 import SVProgressHUD
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var userTextfield: UITextField!
     @IBOutlet var emailTextfield: UITextField!
@@ -19,6 +20,9 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var label1: UILabel!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var facebookButton: UIButton!
+    @IBOutlet weak var avatar: UIButton!
+    
+    var image : UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +35,8 @@ class RegisterViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         
+        setupAvatar()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -41,6 +47,8 @@ class RegisterViewController: UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    
     
     @IBAction func facebookButtonPressed(_ sender: Any) {
         
@@ -59,12 +67,51 @@ class RegisterViewController: UIViewController {
         
     }
     
+    
+    // MARK: - Setup optional user avatar photo
+    
+    func setupAvatar() {
+        
+        avatar.layer.cornerRadius = 45
+        avatar.imageView?.contentMode = .scaleAspectFill
+        avatar.clipsToBounds = true
+        avatar.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
+        avatar.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    @objc func presentPicker() {
+        
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let imageSelected = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            image = imageSelected
+            avatar.setImage(imageSelected, for: .normal)
+        }
+        
+        if let imageOriginal = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            image = imageOriginal
+              avatar.setImage(imageOriginal, for: .normal)
+          }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+
+    
     // MARK: - Sign in authentication
     
     @IBAction func registerPressed(_ sender: AnyObject) {
         
         let error = validateFields()
-        
         
         
         if error != nil {
@@ -77,6 +124,15 @@ class RegisterViewController: UIViewController {
             
         }
         else {
+            
+            guard let imageSelected = self.image else {
+                print("Avatar is not selected")
+                return
+            }
+            
+            guard let imageData = imageSelected.jpegData(compressionQuality: 0.5) else {
+                return
+            }
             
             Auth.auth().createUser(withEmail: emailTextfield.text!, password: passwordTextfield.text!) { (user, error) in
                 
@@ -107,32 +163,58 @@ class RegisterViewController: UIViewController {
                 }
                 else {
                     
-//                    let user = Auth.auth().currentUser
-//                    if let user = user {
-//                        let changeRequest = user.createProfileChangeRequest()
-//
-//                       changeRequest.displayName = "Jane Q. User"
-//                       changeRequest.photoURL =
-//                        NSURL(string: "https://example.com/jane-q-user/profile.jpg") as URL?
-//                        changeRequest.commitChanges { error in
-//                            if error != nil {
-//                           // An error happened.
-//                         } else {
-//                           // Profile updated.
-//                         }
-//                       }
-//                     }
-//
+                    
+                    // data configuration
                     let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                     changeRequest?.displayName = self.userTextfield.text
                     changeRequest?.commitChanges { (error) in
-                      // ...
+                        if error != nil {
+                        print("error changeRequest: \(String(describing: error?.localizedDescription))")
+                        return
+                        }
                     }
-                    let uid = (Auth.auth().currentUser?.uid)!
-                    let ref = Database.database().reference(withPath: "main/users").child(uid)
+                    
+                    let ref = Database.database().reference(withPath: "main/users").child(Auth.auth().currentUser!.uid)
                     ref.setValue(["email": self.emailTextfield.text!,
                                   "user": self.userTextfield.text!,
-                                  "creationDate": String(describing: Date())])
+                                  "creationDate": String(describing: Date()),
+                                  "profileImageUrl": ""])
+                       
+                    // photos storage configration
+                    let storageRef = Storage.storage().reference(forURL: "gs://chatapp-tpal.appspot.com")
+                    let storageProfileRef = storageRef.child("profile").child("\(Auth.auth().currentUser!.uid)")
+                    
+                    let metadata = StorageMetadata()
+                    metadata.contentType = "image/jpg"
+                    storageProfileRef.putData(imageData, metadata: metadata) { (storageMetaData, error) in
+                        if error != nil {
+                          print("error storageProfileRef: \(String(describing: error?.localizedDescription))")
+                            return
+                        }
+                        storageProfileRef.downloadURL { (url, error) in
+                            if let metaImageUrl = url?.absoluteString {
+                                print(metaImageUrl)
+                                Database.database().reference(withPath: "main/users").child("\(Auth.auth().currentUser!.uid)").updateChildValues(["profileImageUrl": metaImageUrl]) { (error, ref) in
+                                    if error == nil {
+                                        
+                                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                                        changeRequest?.photoURL = url
+                                        changeRequest?.commitChanges { (error) in
+                                            if error != nil {
+                                            print("error changeRequest URL: \(String(describing: error?.localizedDescription))")
+                                            return
+                                            }
+                                            print("\(String(describing: (Auth.auth().currentUser?.photoURL)!))")
+                                        }
+                                        print("UpdateChildValues Image URL Done!")
+                                    }
+                                }
+                          
+                            }
+                        }
+                    }
+                    
+                    
                     
                     print("Registration successful!")
                     self.performSegue(withIdentifier: "goToChat", sender: self)
@@ -199,3 +281,5 @@ class RegisterViewController: UIViewController {
     }
     
 }
+
+
