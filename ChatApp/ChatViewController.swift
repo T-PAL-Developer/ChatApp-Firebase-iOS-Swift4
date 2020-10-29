@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import SDWebImage
-
+import ChameleonFramework
 
 class ChatViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
@@ -43,15 +43,28 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "customMessageCell", for: indexPath) as! CustomMessageCell
         
         let avatar = URL(string: messageArray[indexPath.row].avatarURL)
         
         cell.messageBody.text = messageArray[indexPath.row].messageBody
         cell.senderUsername.text = messageArray[indexPath.row].sender
-        cell.avatarImageView?.sd_setImage(with: avatar, placeholderImage: nil, options: SDWebImageOptions.highPriority, context: nil)
         
-
+        if cell.senderUsername.text == Auth.auth().currentUser?.displayName as String? {
+            
+            cell.myAvatarImageView?.sd_setImage(with: avatar, placeholderImage: nil, options: SDWebImageOptions.highPriority, context: nil)
+            cell.messageBackground.backgroundColor = UIColor.flatSkyBlue()
+            cell.myAvatarImageView.isHidden = false
+            cell.avatarImageView.isHidden = true
+            
+        } else {
+            cell.avatarImageView?.sd_setImage(with: avatar, placeholderImage: nil, options: SDWebImageOptions.highPriority, context: nil)
+            cell.messageBackground.backgroundColor = UIColor.flatGray()
+            cell.myAvatarImageView.isHidden = true
+            cell.avatarImageView.isHidden = false
+            
+        }
         
         return cell
         
@@ -62,6 +75,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func configureTableView() {
+        
+        messageTableView.separatorStyle = .none
         messageTableView.rowHeight = UITableView.automaticDimension
         messageTableView.estimatedRowHeight = 120.0
     }

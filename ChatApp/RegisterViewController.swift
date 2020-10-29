@@ -134,7 +134,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                 return
             }
             
-            guard let imageData = imageSelected.jpegData(compressionQuality: 0.2) else {
+            guard let imageData = imageSelected.jpegData(compressionQuality: 0.1) else {
                 return
             }
             

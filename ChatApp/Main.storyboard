@@ -476,7 +476,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7eI-kw-TVm" userLabel="Message Table View">
                                 <rect key="frame" x="0.0" y="88" width="414" height="724"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageCell" id="jHH-VD-leb">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
@@ -489,7 +489,6 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="WpY-IA-acB" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="893-Zp-giU"/>
                             <constraint firstItem="7eI-kw-TVm" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" id="AAq-UW-DJb"/>
