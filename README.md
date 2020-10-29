@@ -17,5 +17,8 @@ You can find here:
 
 * IQKeyboardManager - allows to prevent issue of keyboard sliding up and covering UITextField/UITextView without needing to write any code or make any additional setup. 
 
+Main view <br>
 ![GIF](https://s2.gifyu.com/images/Hnet-image.gif) 
+
+Chat view<br>
 ![GIF](https://s2.gifyu.com/images/Hnet-image-2.gif) 
