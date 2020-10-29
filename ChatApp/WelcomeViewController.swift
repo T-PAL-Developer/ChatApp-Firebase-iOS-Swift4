@@ -29,8 +29,6 @@ class WelcomeViewController: UIViewController {
             return
         }
            
-        
-        
         labelAnimation()
         
     }

@@ -19,6 +19,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zxn-Ce-fCO">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="772"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="fnS-Oq-ySv" appends="YES" id="QFv-bC-Pva"/>
+                                </connections>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rV4-Sa-2Rb">
                                 <rect key="frame" x="0.0" y="817" width="414" height="45"/>
                                 <color key="backgroundColor" red="0.15294117647058825" green="0.68235294117647061" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -80,15 +86,19 @@
                             <constraint firstAttribute="trailing" secondItem="uWY-w2-6La" secondAttribute="trailing" id="CAj-Ps-fV4"/>
                             <constraint firstItem="Gz5-Zs-5mV" firstAttribute="centerX" secondItem="9g1-SA-C5Y" secondAttribute="centerX" id="Dcu-5Y-AvD"/>
                             <constraint firstItem="zbb-8H-oBn" firstAttribute="top" secondItem="cQy-VU-q98" secondAttribute="bottom" constant="25" id="HQG-h9-kkw"/>
+                            <constraint firstItem="zxn-Ce-fCO" firstAttribute="top" secondItem="9g1-SA-C5Y" secondAttribute="top" id="IRE-ED-k8y"/>
                             <constraint firstItem="zbb-8H-oBn" firstAttribute="centerX" secondItem="Gz5-Zs-5mV" secondAttribute="centerX" id="JKD-0l-cei"/>
                             <constraint firstItem="Gz5-Zs-5mV" firstAttribute="top" secondItem="DYZ-x4-65S" secondAttribute="bottom" constant="-7" id="PZq-MH-Hg3"/>
                             <constraint firstItem="Gz5-Zs-5mV" firstAttribute="leading" secondItem="DYZ-x4-65S" secondAttribute="trailing" constant="-81" id="QUv-Gk-CSY"/>
                             <constraint firstItem="9mT-Oj-xlJ" firstAttribute="top" secondItem="rV4-Sa-2Rb" secondAttribute="bottom" id="RCs-FN-g8d"/>
+                            <constraint firstItem="uWY-w2-6La" firstAttribute="top" secondItem="zxn-Ce-fCO" secondAttribute="bottom" id="W8K-AL-H2y"/>
                             <constraint firstItem="coz-qV-kj5" firstAttribute="top" secondItem="zbb-8H-oBn" secondAttribute="bottom" constant="4" id="WQu-sH-49h"/>
                             <constraint firstItem="uWY-w2-6La" firstAttribute="leading" secondItem="9g1-SA-C5Y" secondAttribute="leading" id="X4I-Wn-xdH"/>
+                            <constraint firstAttribute="trailing" secondItem="zxn-Ce-fCO" secondAttribute="trailing" id="bvF-5p-Oqd"/>
                             <constraint firstItem="rV4-Sa-2Rb" firstAttribute="leading" secondItem="9g1-SA-C5Y" secondAttribute="leading" id="d0O-ga-r05"/>
                             <constraint firstItem="Gz5-Zs-5mV" firstAttribute="centerY" secondItem="9g1-SA-C5Y" secondAttribute="centerY" id="dJS-ih-9PQ"/>
                             <constraint firstItem="zbb-8H-oBn" firstAttribute="centerX" secondItem="coz-qV-kj5" secondAttribute="centerX" id="tKb-gb-z4A"/>
+                            <constraint firstItem="zxn-Ce-fCO" firstAttribute="leading" secondItem="9g1-SA-C5Y" secondAttribute="leading" id="zh8-yC-7aV"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Welcome" id="qIL-hP-GCy"/>
@@ -103,7 +113,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d1I-xB-PqX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="fnS-Oq-ySv">
                     <connections>
-                        <action selector="tapGestureOnImageView:" destination="w26-XG-9cC" id="tPc-aA-TYh"/>
+                        <action selector="tapGestureOnImageView:" destination="w26-XG-9cC" id="bG7-M5-O75"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -540,7 +550,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="rRW-Qd-PQi"/>
+        <segue reference="RuE-fI-2yI"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="avatar" width="166.5" height="166.5"/>
