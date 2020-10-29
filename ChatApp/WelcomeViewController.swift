@@ -6,7 +6,7 @@
 //  Copyright © 2020 Tomasz Paluszkiwicz. All rights reserved.
 //
 import UIKit
-
+import FirebaseAuth
 
 
 class WelcomeViewController: UIViewController {
@@ -22,6 +22,14 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard Auth.auth().currentUser == nil else{
+            
+            self.performSegue(withIdentifier: "goToChat", sender: self)
+            return
+        }
+           
+        
         
         labelAnimation()
         

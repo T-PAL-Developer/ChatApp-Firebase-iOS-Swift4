@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import IQKeyboardManagerSwift
 
 @UIApplicationMain
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         FirebaseApp.configure()
+//        configureInitialViewController()
         
         //let myDatabase = Database.database().reference()
         //myDatabase.setValue("We have our data!")
@@ -30,7 +32,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    
+//    func configureInitialViewController() {
+//        var initialVC: UIViewController
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        if Auth.auth().currentUser != nil {
+//            initialVC = storyboard.instantiateViewController(withIdentifier: "welcomeVC")
+//            self.performSegue(withIdentifier: "goToChat", sender: self)
+//        } else {
+//            initialVC = storyboard.instantiateViewController(withIdentifier: "welcomeVC")
+//        }
+//        
+//        window?.rootViewController = initialVC
+//        window?.makeKeyAndVisible()
+//    }
     
     
     
