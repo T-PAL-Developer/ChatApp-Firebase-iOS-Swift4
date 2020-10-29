@@ -28,3 +28,6 @@ Main view <br>
 
 Chat view<br>
 ![GIF](https://s2.gifyu.com/images/Hnet-image-2.gif) 
+
+New ChatView Color<br>
+<img src="https://i.imgur.com/T9lMNZF.png">
