@@ -38,7 +38,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ael-H3-UuV">
                                         <rect key="frame" x="10" y="23.5" width="223" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -67,8 +67,10 @@
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <color key="backgroundColor" red="0.1176470588" green="0.1058823529" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </stackView>
                 </subviews>
+                <color key="backgroundColor" red="0.1176470588" green="0.1058823529" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="nf2-rA-nqF" firstAttribute="leading" secondItem="2SS-CF-kBl" secondAttribute="leading" constant="10" id="OR5-40-v7Y"/>
                     <constraint firstAttribute="trailing" secondItem="nf2-rA-nqF" secondAttribute="trailing" constant="10" id="YB3-22-xNm"/>

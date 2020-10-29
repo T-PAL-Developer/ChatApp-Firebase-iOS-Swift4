@@ -58,15 +58,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         if cell.senderUsername.text == Auth.auth().currentUser?.displayName as String? {
             
             cell.myAvatarImageView?.sd_setImage(with: avatar, placeholderImage: nil, options: SDWebImageOptions.highPriority, context: nil)
-            cell.messageBackground.backgroundColor = UIColor.flatSkyBlue()
+            cell.messageBackground.backgroundColor = #colorLiteral(red: 0.7869611036, green: 0.9575180411, blue: 0.7970717807, alpha: 1)
             cell.myAvatarImageView.isHidden = false
             cell.avatarImageView.isHidden = true
             
         } else {
             cell.avatarImageView?.sd_setImage(with: avatar, placeholderImage: nil, options: SDWebImageOptions.highPriority, context: nil)
-            cell.messageBackground.backgroundColor = UIColor.flatGray()
+            cell.messageBackground.backgroundColor = #colorLiteral(red: 0.8832141889, green: 0.922536861, blue: 0.9575180411, alpha: 1)
             cell.myAvatarImageView.isHidden = true
             cell.avatarImageView.isHidden = false
+            //cell.messageBody.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            
             
         }
         
