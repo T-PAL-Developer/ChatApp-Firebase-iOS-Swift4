@@ -11,11 +11,17 @@ You can find here:
 * How to store data in the cloud using Firebase
 * UITableView and custom cells in a Table View
 * Using Firebase for user authentication
+* Sign up/ Log in/ Log out/ Auto log in
 * Pass data between View Controllers
 * Delegates and Protocols
 * Tween Animation
 
 * IQKeyboardManager - allows to prevent issue of keyboard sliding up and covering UITextField/UITextView without needing to write any code or make any additional setup. 
+
+TODO:
+
+* Facebook authentication
+* Forgot password configuration
 
 Main view <br>
 ![GIF](https://s2.gifyu.com/images/Hnet-image.gif) 
